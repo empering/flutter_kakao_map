@@ -51,7 +51,7 @@ class MapEvent<T> {
 /// A `MapEvent` associated to a `position`.
 class _PositionedMapEvent<T> extends MapEvent<T> {
   /// The position where this event happened.
-  final MapPoint position;
+  final MapPoint? position;
 
   /// Build a Positioned MapEvent, that relates a mapId and a position with a value.
   ///
@@ -121,7 +121,7 @@ class MarkerDragEndEvent extends _PositionedMapEvent<MarkerId> {
   ///
   /// The `position` on this event is the [LatLng] on which the Marker was dropped.
   /// The `value` of this event is a [MarkerId] object that represents the moved Marker.
-  MarkerDragEndEvent(int mapId, MapPoint position, MarkerId markerId)
+  MarkerDragEndEvent(int mapId, MapPoint? position, MarkerId markerId)
       : super(mapId, position, markerId);
 }
 
@@ -130,7 +130,7 @@ class MapTapEvent extends _PositionedMapEvent<void> {
   /// Build an MapTap Event triggered from the map represented by `mapId`.
   ///
   /// The `position` of this event is the LatLng where the Map was tapped.
-  MapTapEvent(int mapId, MapPoint position) : super(mapId, position, null);
+  MapTapEvent(int mapId, MapPoint? position) : super(mapId, position, null);
 }
 
 /// An event fired when a Map is long pressed.
@@ -138,6 +138,6 @@ class MapLongPressEvent extends _PositionedMapEvent<void> {
   /// Build an MapTap Event triggered from the map represented by `mapId`.
   ///
   /// The `position` of this event is the LatLng where the Map was long pressed.
-  MapLongPressEvent(int mapId, MapPoint position)
+  MapLongPressEvent(int mapId, MapPoint? position)
       : super(mapId, position, null);
 }

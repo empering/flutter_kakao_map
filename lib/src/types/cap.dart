@@ -43,7 +43,6 @@ class Cap {
     BitmapDescriptor bitmapDescriptor, {
     double refWidth = 10,
   }) {
-    assert(bitmapDescriptor != null);
     assert(refWidth > 0.0);
     return Cap._(<dynamic>['customCap', bitmapDescriptor.toJson(), refWidth]);
   }

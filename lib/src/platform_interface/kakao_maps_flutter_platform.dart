@@ -58,7 +58,7 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   /// The returned [Future] completes after listeners have been notified.
   Future<void> updateMapOptions(
     Map<String, dynamic> optionsUpdate, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('updateMapOptions() has not been implemented.');
   }
@@ -71,7 +71,7 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   /// The returned [Future] completes after listeners have been notified.
   Future<void> updateMarkers(
     MarkerUpdates markerUpdates, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('updateMarkers() has not been implemented.');
   }
@@ -82,7 +82,7 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   /// platform side.
   Future<void> animateCamera(
     CameraUpdate cameraUpdate, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('animateCamera() has not been implemented.');
   }
@@ -93,7 +93,7 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   /// platform side.
   Future<void> moveCamera(
     CameraUpdate cameraUpdate, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('moveCamera() has not been implemented.');
   }
@@ -110,14 +110,14 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   /// The style string can be generated using [map style tool](https://mapstyle.withgoogle.com/).
   Future<void> setMapStyle(
     String mapStyle, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('setMapStyle() has not been implemented.');
   }
 
   /// Return the region that is visible in a map.
   Future<LatLngBounds> getVisibleRegion({
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('getVisibleRegion() has not been implemented.');
   }
@@ -132,7 +132,7 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   ///   * [isMarkerInfoWindowShown] to check if the Info Window is showing.
   Future<void> showMarkerInfoWindow(
     MarkerId markerId, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError(
         'showMarkerInfoWindow() has not been implemented.');
@@ -148,33 +148,33 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   ///   * [isMarkerInfoWindowShown] to check if the Info Window is showing.
   Future<void> hideMarkerInfoWindow(
     MarkerId markerId, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError(
         'hideMarkerInfoWindow() has not been implemented.');
   }
 
   Future<void> clearMapTilePersistentCache({
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError(
         'clearMapTilePersistentCache() has not been implemented.');
   }
 
   Future<void> zoomIn({
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('zoomIn() has not been implemented.');
   }
 
   Future<void> zoomOut({
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('zoomOut() has not been implemented.');
   }
 
   Future<MapPoint> getMapCenterPoint({
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('getMapCenterPoint() has not been implemented.');
   }
@@ -187,23 +187,23 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   /// * See also:
   ///   * [showMarkerInfoWindow] to show the Info Window.
   ///   * [hideMarkerInfoWindow] to hide the Info Window.
-  Future<bool> isMarkerInfoWindowShown(
+  Future<bool?> isMarkerInfoWindowShown(
     MarkerId markerId, {
-    @required int mapId,
+    required int mapId,
   }) {
     throw UnimplementedError('updateMapOptions() has not been implemented.');
   }
 
   /// Returns the current zoom level of the map
-  Future<double> getZoomLevel({
-    @required int mapId,
+  Future<double?> getZoomLevel({
+    required int mapId,
   }) {
     throw UnimplementedError('getZoomLevel() has not been implemented.');
   }
 
   /// Returns the image bytes of the map
-  Future<Uint8List> takeSnapshot({
-    @required int mapId,
+  Future<Uint8List?> takeSnapshot({
+    required int mapId,
   }) {
     throw UnimplementedError('takeSnapshot() has not been implemented.');
   }
@@ -212,59 +212,59 @@ abstract class KakaoMapsFlutterPlatform extends PlatformInterface {
   // into the plugin
 
   /// The Camera started moving.
-  Stream<CameraMoveStartedEvent> onCameraMoveStarted({@required int mapId}) {
+  Stream<CameraMoveStartedEvent> onCameraMoveStarted({required int mapId}) {
     throw UnimplementedError('onCameraMoveStarted() has not been implemented.');
   }
 
   Stream<CameraCurrentLocationEvent> onCurrentLocationUpdate(
-      {@required int mapId}) {
+      {required int mapId}) {
     throw UnimplementedError(
         'onCurrentLocationUpdate() has not been implemented.');
   }
 
-  Stream<MarkerSelectEvent> onMarkerSelect({@required int mapId}) {
+  Stream<MarkerSelectEvent> onMarkerSelect({required int mapId}) {
     throw UnimplementedError('onMarkerSelect() has not been implemented.');
   }
 
   /// The Camera finished moving to a new [CameraPosition].
-  Stream<CameraMoveEvent> onCameraMove({@required int mapId}) {
+  Stream<CameraMoveEvent> onCameraMove({required int mapId}) {
     throw UnimplementedError('onCameraMove() has not been implemented.');
   }
 
   /// The Camera is now idle.
-  Stream<CameraIdleEvent> onCameraIdle({@required int mapId}) {
+  Stream<CameraIdleEvent> onCameraIdle({required int mapId}) {
     throw UnimplementedError('onCameraMove() has not been implemented.');
   }
 
   /// A [Marker] has been tapped.
-  Stream<MarkerTapEvent> onMarkerTap({@required int mapId}) {
+  Stream<MarkerTapEvent> onMarkerTap({required int mapId}) {
     throw UnimplementedError('onMarkerTap() has not been implemented.');
   }
 
   /// An [InfoWindow] has been tapped.
-  Stream<InfoWindowTapEvent> onInfoWindowTap({@required int mapId}) {
+  Stream<InfoWindowTapEvent> onInfoWindowTap({required int mapId}) {
     throw UnimplementedError('onInfoWindowTap() has not been implemented.');
   }
 
   /// A [Marker] has been dragged to a different [LatLng] position.
-  Stream<MarkerDragEndEvent> onMarkerDragEnd({@required int mapId}) {
+  Stream<MarkerDragEndEvent> onMarkerDragEnd({required int mapId}) {
     throw UnimplementedError('onMarkerDragEnd() has not been implemented.');
   }
 
   /// A Map has been tapped at a certain [LatLng].
-  Stream<MapTapEvent> onTap({@required int mapId}) {
+  Stream<MapTapEvent> onTap({required int mapId}) {
     throw UnimplementedError('onTap() has not been implemented.');
   }
 
   /// A Map has been long-pressed at a certain [LatLng].
-  Stream<MapLongPressEvent> onLongPress({@required int mapId}) {
+  Stream<MapLongPressEvent> onLongPress({required int mapId}) {
     throw UnimplementedError('onLongPress() has not been implemented.');
   }
 
   /// Returns a widget displaying the map view
   Widget buildView(
       Map<String, dynamic> creationParams,
-      Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers,
+      Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers,
       PlatformViewCreatedCallback onPlatformViewCreated) {
     throw UnimplementedError('buildView() has not been implemented.');
   }

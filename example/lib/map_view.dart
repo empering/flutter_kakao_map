@@ -6,7 +6,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_kakao_map/flutter_kakao_map.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_kakao_map/kakao_maps_flutter_platform_interface.dart';
 
 import 'page.dart';

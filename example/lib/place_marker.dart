@@ -5,7 +5,6 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';

@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'dart:ui' show hashValues;
-import 'package:meta/meta.dart';
 
 /// A pair of latitude and longitude coordinates, stored as degrees.
 class MapPoint {
@@ -11,9 +10,7 @@ class MapPoint {
   /// 지도 화면 위의 위치와 관련된 작업을 처리할 때 항상 MapPoint 객체를 사용한다.
   /// MapPoint 객체는 위경도값(WGS84) 을 이용하여 생성하거나, 평면 좌표값(WCONG, CONG, WTM, …) 을 이용하여 생성할 수 있다.
   const MapPoint(double latitude, double longitude)
-      : assert(latitude != null),
-        assert(longitude != null),
-        latitude =
+      : latitude =
             (latitude < -90.0 ? -90.0 : (90.0 < latitude ? 90.0 : latitude)),
         longitude = (longitude + 180.0) % 360.0 - 180.0;
 
@@ -29,7 +26,7 @@ class MapPoint {
   }
 
   /// Initialize a LatLng from an \[lat, lng\] array.
-  static MapPoint fromJson(dynamic json) {
+  static MapPoint? fromJson(dynamic json) {
     if (json == null) {
       return null;
     }
@@ -61,10 +58,8 @@ class MapPointBounds {
   ///
   /// The latitude of the bottomLeft corner cannot be larger than the
   /// latitude of the topRight corner.
-  MapPointBounds({@required this.bottomLeft, @required this.topRight})
-      : assert(bottomLeft != null),
-        assert(topRight != null),
-        assert(bottomLeft.latitude <= topRight.latitude);
+  MapPointBounds({required this.bottomLeft, required this.topRight})
+      : assert(bottomLeft.latitude <= topRight.latitude);
 
   /// The bottomLeft corner of the rectangle.
   final MapPoint bottomLeft;
@@ -96,13 +91,13 @@ class MapPointBounds {
   }
 
   /// Converts a list to [MapPointBounds].
-  static MapPointBounds fromList(dynamic json) {
+  static MapPointBounds? fromList(dynamic json) {
     if (json == null) {
       return null;
     }
     return MapPointBounds(
-      bottomLeft: MapPoint.fromJson(json[0]),
-      topRight: MapPoint.fromJson(json[1]),
+      bottomLeft: MapPoint.fromJson(json[0])!,
+      topRight: MapPoint.fromJson(json[1])!,
     );
   }
 

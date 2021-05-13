@@ -16,8 +16,8 @@ class KakaoMap extends StatefulWidget {
   ///
   /// [AssertionError] will be thrown if [initialCameraPosition] is null;
   const KakaoMap({
-    Key key,
-    @required this.initialCameraPosition,
+    Key? key,
+    required this.initialCameraPosition,
     this.onMapCreated,
     this.gestureRecognizers,
     this.compassEnabled = true,
@@ -47,13 +47,12 @@ class KakaoMap extends StatefulWidget {
     this.onMarkerSelect,
     this.onTap,
     this.onLongPress,
-  })  : assert(initialCameraPosition != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Callback method for when the map is ready to be used.
   ///
   /// Used to receive a [KakaoMapController] for this [KakaoMap].
-  final MapCreatedCallback onMapCreated;
+  final MapCreatedCallback? onMapCreated;
 
   /// 지도 카메라의 초기 위치입니다.
   final CameraPosition initialCameraPosition;
@@ -100,7 +99,7 @@ class KakaoMap extends StatefulWidget {
   final EdgeInsets padding;
 
   /// Markers to be placed on the map.
-  final Set<Marker> markers;
+  final Set<Marker>? markers;
 
   /// Called when the camera starts moving.
   ///
@@ -110,28 +109,28 @@ class KakaoMap extends StatefulWidget {
   /// 2. Programmatically initiated animation.
   /// 3. Camera motion initiated in response to user gestures on the map.
   ///    For example: pan, tilt, pinch to zoom, or rotate.
-  final VoidCallback onCameraMoveStarted;
+  final VoidCallback? onCameraMoveStarted;
 
   /// 지도 중심 좌표가 이동한 경우 호출된다.
-  final CameraPositionCallback onCameraMove;
+  final CameraPositionCallback? onCameraMove;
 
   /// CurrentLocationEventListener interface를 구현하는 객체를 MapView 객체에 등록하여
   /// 현위치 트래킹 이벤트를 통보받을 수 있다.
-  final CameraPositionCallback onCurrentLocationUpdate;
+  final CameraPositionCallback? onCurrentLocationUpdate;
 
   //단말 사용자가 POI Item을 선택한 경우 호출된다.
   // 사용자가 MapView 에 등록된 POI Item 아이콘(마커)를 터치한 경우 호출된다.
-  final MarkerSelectCallback onMarkerSelect;
+  final MarkerSelectCallback? onMarkerSelect;
 
   /// Called when camera movement has ended, there are no pending
   /// animations and the user has stopped interacting with the map.
-  final VoidCallback onCameraIdle;
+  final VoidCallback? onCameraIdle;
 
   /// 사용자가 지도 위를 터치한 경우 호출된다.
-  final ArgumentCallback<MapPoint> onTap;
+  final ArgumentCallback<MapPoint>? onTap;
 
   /// 사용자가 지도 위 한 지점을 길게 누른 경우(long press) 호출된다.
-  final ArgumentCallback<MapPoint> onLongPress;
+  final ArgumentCallback<MapPoint>? onLongPress;
 
   /// True if a "My Location" layer should be shown on the map.
   ///
@@ -184,7 +183,7 @@ class KakaoMap extends StatefulWidget {
   ///
   /// When this set is empty or null, the map will only handle pointer events for gestures that
   /// were not claimed by any other gesture recognizer.
-  final Set<Factory<OneSequenceGestureRecognizer>> gestureRecognizers;
+  final Set<Factory<OneSequenceGestureRecognizer>>? gestureRecognizers;
 
   /// Creates a [State] for this [KakaoMap].
   @override
@@ -196,12 +195,12 @@ class _KakaoMapState extends State<KakaoMap> {
       Completer<KakaoMapController>();
 
   Map<MarkerId, Marker> _markers = <MarkerId, Marker>{};
-  _KakaoMapOptions _kakaoMapOptions;
+  late _KakaoMapOptions _kakaoMapOptions;
 
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> creationParams = <String, dynamic>{
-      'initialCameraPosition': widget.initialCameraPosition?.toMap(),
+      'initialCameraPosition': widget.initialCameraPosition.toMap(),
       'options': _kakaoMapOptions.toMap(),
       'markersToAdd': serializeMarkerSet(widget.markers),
     };
@@ -255,42 +254,37 @@ class _KakaoMapState extends State<KakaoMap> {
     );
     _controller.complete(controller);
     if (widget.onMapCreated != null) {
-      widget.onMapCreated(controller);
+      widget.onMapCreated!(controller);
     }
   }
 
   void onMarkerTap(MarkerId markerId) {
-    assert(markerId != null);
     if (_markers[markerId]?.onTap != null) {
-      _markers[markerId].onTap();
+      _markers[markerId]!.onTap!();
     }
   }
 
-  void onMarkerDragEnd(MarkerId markerId, MapPoint position) {
-    assert(markerId != null);
+  void onMarkerDragEnd(MarkerId markerId, MapPoint? position) {
     if (_markers[markerId]?.onDragEnd != null) {
-      _markers[markerId].onDragEnd(position);
+      _markers[markerId]!.onDragEnd!(position!);
     }
   }
 
   void onInfoWindowTap(MarkerId markerId) {
-    assert(markerId != null);
-    if (_markers[markerId]?.infoWindow?.onTap != null) {
-      _markers[markerId].infoWindow.onTap();
+    if (_markers[markerId]?.infoWindow.onTap != null) {
+      _markers[markerId]!.infoWindow.onTap!();
     }
   }
 
   void onTap(MapPoint position) {
-    assert(position != null);
     if (widget.onTap != null) {
-      widget.onTap(position);
+      widget.onTap!(position);
     }
   }
 
   void onLongPress(MapPoint position) {
-    assert(position != null);
     if (widget.onLongPress != null) {
-      widget.onLongPress(position);
+      widget.onLongPress!(position);
     }
   }
 }
@@ -339,37 +333,37 @@ class _KakaoMapOptions {
     );
   }
 
-  final bool compassEnabled;
+  final bool? compassEnabled;
 
-  final CameraTargetBounds cameraTargetBounds;
+  final CameraTargetBounds? cameraTargetBounds;
 
-  final MapType mapType;
+  final MapType? mapType;
 
-  final CurrentLocationTrackingMode currentLocationTrackingMode;
+  final CurrentLocationTrackingMode? currentLocationTrackingMode;
 
-  final bool hdMapTileEnabled;
+  final bool? hdMapTileEnabled;
 
-  final MinMaxZoomPreference minMaxZoomPreference;
+  final MinMaxZoomPreference? minMaxZoomPreference;
 
-  final bool rotateGesturesEnabled;
+  final bool? rotateGesturesEnabled;
 
-  final bool scrollGesturesEnabled;
+  final bool? scrollGesturesEnabled;
 
-  final bool tiltGesturesEnabled;
+  final bool? tiltGesturesEnabled;
 
-  final bool trackCameraPosition;
+  final bool? trackCameraPosition;
 
-  final bool zoomControlsEnabled;
+  final bool? zoomControlsEnabled;
 
-  final bool zoomGesturesEnabled;
+  final bool? zoomGesturesEnabled;
 
-  final bool myLocationEnabled;
+  final bool? myLocationEnabled;
 
-  final bool myLocationButtonEnabled;
+  final bool? myLocationButtonEnabled;
 
-  final EdgeInsets padding;
+  final EdgeInsets? padding;
 
-  final bool indoorViewEnabled;
+  final bool? indoorViewEnabled;
 
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> optionsMap = <String, dynamic>{};
@@ -395,7 +389,7 @@ class _KakaoMapOptions {
     addIfNonNull('trackCameraPosition', trackCameraPosition);
     addIfNonNull('myLocationEnabled', myLocationEnabled);
     addIfNonNull('myLocationButtonEnabled', myLocationButtonEnabled);
-    addIfNonNull('padding', <double>[
+    addIfNonNull('padding', <double?>[
       padding?.top,
       padding?.left,
       padding?.bottom,

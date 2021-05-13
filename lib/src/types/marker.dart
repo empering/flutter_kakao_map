@@ -5,14 +5,11 @@
 import 'dart:ui' show hashValues, Offset;
 
 import 'package:flutter/foundation.dart' show ValueChanged, VoidCallback;
-import 'package:meta/meta.dart' show immutable, required;
+import 'package:meta/meta.dart' show immutable;
 
 import 'types.dart';
 
 dynamic _offsetToJson(Offset offset) {
-  if (offset == null) {
-    return null;
-  }
   return <dynamic>[offset.dx, offset.dy];
 }
 
@@ -75,12 +72,12 @@ class InfoWindow {
   /// Text displayed in an info window when the user taps the marker.
   ///
   /// A null value means no title.
-  final String title;
+  final String? title;
 
   /// Additional text displayed below the [title].
   ///
   /// A null value means no additional text.
-  final String snippet;
+  final String? snippet;
 
   /// The icon image point that will be the anchor of the info window when
   /// displayed.
@@ -91,15 +88,15 @@ class InfoWindow {
   final Offset anchor;
 
   /// onTap callback for this [InfoWindow].
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// Creates a new [InfoWindow] object whose values are the same as this instance,
   /// unless overwritten by the specified parameters.
   InfoWindow copyWith({
-    String titleParam,
-    String snippetParam,
-    Offset anchorParam,
-    VoidCallback onTapParam,
+    String? titleParam,
+    String? snippetParam,
+    Offset? anchorParam,
+    VoidCallback? onTapParam,
   }) {
     return InfoWindow(
       title: titleParam ?? title,
@@ -129,7 +126,7 @@ class InfoWindow {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    final InfoWindow typedOther = other;
+    final InfoWindow typedOther = other as InfoWindow;
     return title == typedOther.title &&
         snippet == typedOther.snippet &&
         anchor == typedOther.anchor;
@@ -155,14 +152,10 @@ class MarkerTag {
   /// null.
   const MarkerTag({
     // this.bearing = 0.0,
-    @required this.target,
+    required this.target,
     // this.tilt = 0.0,
-    @required this.tag,
-  })  :
-        // assert(bearing != null),
-        assert(target != null),
-        // assert(tilt != null),
-        assert(tag != null);
+    required this.tag,
+  });
 
   /// The camera's bearing in degrees, measured clockwise from north.
   ///
@@ -210,13 +203,13 @@ class MarkerTag {
   /// Deserializes [MarkerTag] from a map.
   ///
   /// Mainly for internal use.
-  static MarkerTag fromMap(dynamic json) {
+  static MarkerTag? fromMap(dynamic json) {
     if (json == null) {
       return null;
     }
     return MarkerTag(
       // bearing: json['bearing'],
-      target: MapPoint.fromJson(json['target']),
+      target: MapPoint.fromJson(json['target'])!,
       // tilt: json['tilt'],
       tag: json['tag'],
     );
@@ -250,7 +243,7 @@ class MarkerTag {
 @immutable
 class MarkerId {
   /// Creates an immutable identifier for a [Marker].
-  MarkerId(this.value) : assert(value != null);
+  MarkerId(this.value);
 
   /// value of the [MarkerId].
   final String value;
@@ -259,7 +252,7 @@ class MarkerId {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    final MarkerId typedOther = other;
+    final MarkerId typedOther = other as MarkerId;
     return value == typedOther.value;
   }
 
@@ -299,7 +292,7 @@ class Marker {
   /// * reports [onTap] events
   /// * reports [onDragEnd] events
   const Marker({
-    @required this.markerId,
+    required this.markerId,
     this.alpha = 1.0,
     this.anchor = const Offset(0.5, 1.0),
     this.consumeTapEvents = false,
@@ -316,7 +309,7 @@ class Marker {
     this.showAnimationType = ShowAnimationType.showAnimationTypeDropFromHeaven,
     this.onTap,
     this.onDragEnd,
-  }) : assert(alpha == null || (0.0 <= alpha && alpha <= 1.0));
+  }) : assert((0.0 <= alpha && alpha <= 1.0));
 
   /// Uniquely identifies a [Marker].
   final MarkerId markerId;
@@ -376,30 +369,30 @@ class Marker {
   final ShowAnimationType showAnimationType;
 
   /// Callbacks to receive tap events for markers placed on this map.
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// Signature reporting the new [MapPoint] at the end of a drag event.
-  final ValueChanged<MapPoint> onDragEnd;
+  final ValueChanged<MapPoint>? onDragEnd;
 
   /// Creates a new [Marker] object whose values are the same as this instance,
   /// unless overwritten by the specified parameters.
   Marker copyWith({
-    double alphaParam,
-    Offset anchorParam,
-    bool consumeTapEventsParam,
-    bool draggableParam,
-    bool flatParam,
-    BitmapDescriptor iconParam,
-    InfoWindow infoWindowParam,
-    MapPoint positionParam,
-    double rotationParam,
-    bool visibleParam,
-    double zIndexParam,
-    MarkerType markerTypeParam,
-    MarkerSelectedType markerSelectedTypeParam,
-    ShowAnimationType showAnimationTypeParam,
-    VoidCallback onTapParam,
-    ValueChanged<MapPoint> onDragEndParam,
+    double? alphaParam,
+    Offset? anchorParam,
+    bool? consumeTapEventsParam,
+    bool? draggableParam,
+    bool? flatParam,
+    BitmapDescriptor? iconParam,
+    InfoWindow? infoWindowParam,
+    MapPoint? positionParam,
+    double? rotationParam,
+    bool? visibleParam,
+    double? zIndexParam,
+    MarkerType? markerTypeParam,
+    MarkerSelectedType? markerSelectedTypeParam,
+    ShowAnimationType? showAnimationTypeParam,
+    VoidCallback? onTapParam,
+    ValueChanged<MapPoint>? onDragEndParam,
   }) {
     return Marker(
       markerId: markerId,
@@ -441,9 +434,9 @@ class Marker {
     addIfPresent('consumeTapEvents', consumeTapEvents);
     addIfPresent('draggable', draggable);
     addIfPresent('flat', flat);
-    addIfPresent('icon', icon?.toJson());
-    addIfPresent('infoWindow', infoWindow?._toJson());
-    addIfPresent('position', position?.toJson());
+    addIfPresent('icon', icon.toJson());
+    addIfPresent('infoWindow', infoWindow._toJson());
+    addIfPresent('position', position.toJson());
     addIfPresent('rotation', rotation);
     addIfPresent('visible', visible);
     addIfPresent('zIndex', zIndex);
@@ -457,7 +450,7 @@ class Marker {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other.runtimeType != runtimeType) return false;
-    final Marker typedOther = other;
+    final Marker typedOther = other as Marker;
     return markerId == typedOther.markerId &&
         alpha == typedOther.alpha &&
         anchor == typedOther.anchor &&
